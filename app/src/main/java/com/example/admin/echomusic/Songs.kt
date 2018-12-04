@@ -6,8 +6,20 @@ import java.util.*
 
 class Songs(var songID: Long, var songTitle: String, var songArtist: String
             , var songData: String, var songAddedDate: Long) : Parcelable {
-    override fun writeToParcel(dest: Parcel?, flags: Int) {
+    constructor(parcel: Parcel) : this(
+            parcel.readLong(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readLong()) {
+    }
 
+    override fun writeToParcel(dest: Parcel?, flags: Int) {
+        dest?.writeLong(songID)
+        dest?.writeString(songTitle)
+        dest?.writeString(songArtist)
+        dest?.writeString(songData)
+        dest?.writeLong(songAddedDate)
     }
 
 
@@ -30,6 +42,16 @@ class Songs(var songID: Long, var songTitle: String, var songArtist: String
             val songOne = song1.songAddedDate.toDouble()
             val songTwo = song2.songAddedDate.toDouble()
             songTwo.compareTo(songOne)
+        }
+    }
+
+    companion object CREATOR : Parcelable.Creator<Songs> {
+        override fun createFromParcel(parcel: Parcel): Songs {
+            return Songs(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Songs?> {
+            return arrayOfNulls(size)
         }
     }
 
