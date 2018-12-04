@@ -14,6 +14,8 @@ class Songs(var songID: Long, var songTitle: String, var songArtist: String
             parcel.readLong()) {
     }
 
+    // i have changed the songs and added the creater implementation here
+    
     override fun writeToParcel(dest: Parcel?, flags: Int) {
         dest?.writeLong(songID)
         dest?.writeString(songTitle)
